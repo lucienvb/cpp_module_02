@@ -4,7 +4,7 @@
 // INCLUDES
 #include <iostream>
 
-// Canonical from includes the following:
+// The Orthodox Canonical From (OCF) includes the following:
 // 1) A constructor
 // 2) A copy constructor
 // 3) A destructor
