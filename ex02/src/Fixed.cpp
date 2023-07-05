@@ -94,3 +94,25 @@ Fixed	Fixed::operator/(const Fixed& other) const {
 	int	quotient = _value / other._value;
 	return (Fixed(quotient));
 }
+
+Fixed&	Fixed::operator++() {
+	_value += (1 << _fractionalBits);
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int) {
+	Fixed	old(*this);
+	++(*this);
+	return (old);
+}
+
+Fixed&	Fixed::operator--() {
+	_value -= (1 << _fractionalBits);
+	return (*this);
+}
+
+Fixed	Fixed::operator--(int) {
+	Fixed	old(*this);
+	--(*this);
+	return (old);
+}

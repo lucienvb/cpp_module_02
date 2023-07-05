@@ -27,6 +27,11 @@ public:
 	Fixed	operator*(const Fixed& other) const;
 	Fixed	operator/(const Fixed& other) const;
 
+	Fixed&	operator++();
+	Fixed	operator++(int);
+	Fixed&	operator--();
+	Fixed	operator--(int);
+
 	float	toFloat(void) const;
 	int 	toInt(void) const;
 
