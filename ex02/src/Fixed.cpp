@@ -54,3 +54,43 @@ int	Fixed::toInt() const {
 bool	Fixed::operator>(const Fixed& other) const {
 	return (_value > other._value);
 }
+
+bool	Fixed::operator<(const Fixed& other) const {
+	return (_value < other._value);
+}
+
+bool	Fixed::operator>=(const Fixed& other) const {
+	return (_value >= other._value);
+}
+
+bool	Fixed::operator<=(const Fixed& other) const {
+	return (_value <= other._value);
+}
+
+bool	Fixed::operator==(const Fixed& other) const {
+	return (_value == other._value);
+}
+
+bool	Fixed::operator!=(const Fixed& other) const {
+	return (_value != other._value);
+}
+
+Fixed	Fixed::operator+(const Fixed& other) const {
+	int	sum = _value + other._value;
+	return (Fixed(sum / (1 << _fractionalBits)));
+}
+
+Fixed	Fixed::operator-(const Fixed& other) const {
+	int	sum = _value - other._value;
+	return (Fixed(sum / (1 << _fractionalBits)));
+}
+
+Fixed	Fixed::operator*(const Fixed& other) const {
+	int	product = _value * other._value;
+	return (Fixed(product >> (_fractionalBits * 2)));
+}
+
+Fixed	Fixed::operator/(const Fixed& other) const {
+	int	quotient = _value / other._value;
+	return (Fixed(quotient));
+}
