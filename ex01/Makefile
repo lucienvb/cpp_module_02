@@ -25,7 +25,7 @@ CC				= c++
 
 ################################################################################
 
-CFLAGS			= -Wall -Wextra -Werror -Wpedantic -std=c++98 -std=c++11
+CFLAGS			= -Wall -Wextra -Werror -Wpedantic -std=c++98 -std=c++11 -std=c++17
 INCLUDE_FLAGS	:= $(addprefix -I, $(sort $(dir $(HEADERS))))
 CRIT_FLAG		= -lcriterion
 

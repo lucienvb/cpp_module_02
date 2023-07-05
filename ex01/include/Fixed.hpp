@@ -4,6 +4,8 @@
 // INCLUDES
 #include <iostream>
 
+#define MESSAGE 1
+
 class Fixed {
 public:
 	Fixed();

@@ -1,7 +1,8 @@
 #include <Fixed.hpp>
 
 Fixed::Fixed() {
-	std::cout << "Default constructor called" << std::endl;
+	if (MESSAGE)
+		std::cout << "Default constructor called" << std::endl;
 	_value = 0;
 }
 
@@ -11,7 +12,8 @@ Fixed::Fixed() {
 // factor of 2 to the power of _fractionalBits (8), effectively converting
 // it into fixed-point representation.
 Fixed::Fixed(const int value) {
-	std::cout << "(int) Copy constructor called" << std::endl;
+	if (MESSAGE)
+		std::cout << "(int) Copy constructor called" << std::endl;
 	_value = (value << _fractionalBits);
 }
 
@@ -19,12 +21,14 @@ Fixed::Fixed(const int value) {
 // determined by fractionalBits, rounds the result with `roundf` and
 // assign it to _value.
 Fixed::Fixed(const float value) {
-	std::cout << "(float) Copy constructor called" << std::endl;
+	if (MESSAGE)
+		std::cout << "(float) Copy constructor called" << std::endl;
 	_value = (roundf(value * (1 << _fractionalBits)));
 }
 
 Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
+	if (MESSAGE)
+		std::cout << "Destructor called" << std::endl;
 }
 
 // This function allows a `Fixed` object to be inserted into an output
