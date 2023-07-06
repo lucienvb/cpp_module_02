@@ -1,5 +1,8 @@
 #include <Fixed.hpp>
 
+//const Fixed Fixed::_minValue = Fixed(-1.0f);
+const Fixed Fixed::_minValue = Fixed(-(1 << Fixed::_fractionalBits));
+
 Fixed::Fixed() {
 	if (MESSAGE)
 		std::cout << "Default constructor called" << std::endl;
@@ -13,7 +16,7 @@ Fixed::Fixed() {
 // it into fixed-point representation.
 Fixed::Fixed(const int value) {
 	if (MESSAGE)
-		std::cout << "(int) Copy constructor called" << std::endl;
+		std::cout << "Int constructor called" << std::endl;
 	_value = (value << _fractionalBits);
 }
 
@@ -22,8 +25,26 @@ Fixed::Fixed(const int value) {
 // assign it to _value.
 Fixed::Fixed(const float value) {
 	if (MESSAGE)
-		std::cout << "(float) Copy constructor called" << std::endl;
+		std::cout << "Float constructor called" << std::endl;
 	_value = (roundf(value * (1 << _fractionalBits)));
+}
+
+// Where for?
+Fixed::Fixed(const Fixed& f) {
+	if (MESSAGE)
+		std::cout << "Copy constructor called" << std::endl;
+	_value = f.getRawBits();
+
+}
+
+// Where for?
+Fixed&	Fixed::operator=(const Fixed& f) {
+	if (MESSAGE)
+		std::cout << "Copy assigment operator called" << std::endl;
+	if (this != &f)
+		_value = f.getRawBits();
+	return (*this);
+
 }
 
 Fixed::~Fixed() {
@@ -92,11 +113,16 @@ Fixed	Fixed::operator*(const Fixed& other) const {
 
 Fixed	Fixed::operator/(const Fixed& other) const {
 	int	quotient = _value / other._value;
+//	int64_t numerator = static_cast<int64_t>(_value) << _fractionalBits;
+//	int32_t quotient = static_cast<int32_t>((numerator / other._value) + ((numerator % other._value) >= (other._value >> 1)));
 	return (Fixed(quotient));
 }
 
-Fixed&	Fixed::operator++() {
-	_value += (1 << _fractionalBits);
+Fixed&	Fixed::operator++(void) {
+	if (*this == _minValue)
+		_value = _minValue._value;
+	else
+		_value += (1 << _fractionalBits);
 	return (*this);
 }
 
@@ -106,7 +132,7 @@ Fixed	Fixed::operator++(int) {
 	return (old);
 }
 
-Fixed&	Fixed::operator--() {
+Fixed&	Fixed::operator--(void) {
 	_value -= (1 << _fractionalBits);
 	return (*this);
 }
@@ -131,4 +157,11 @@ Fixed&	Fixed::max(Fixed& a, Fixed& b) {
 
 const Fixed	Fixed::max(const Fixed a, const Fixed b) {
 	return (a > b) ? a : b;
+}
+
+// Is this one needed for this exercise?
+int	Fixed::getRawBits() const {
+	if (MESSAGE)
+		std::cout << "getRawBits member function called" << std::endl;
+	return (_value);
 }
