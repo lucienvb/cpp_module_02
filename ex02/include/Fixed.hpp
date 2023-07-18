@@ -12,13 +12,8 @@ public:
 	Fixed();
 	Fixed(const int value);
 	Fixed(const float value);
-
-	// Where for?
 	Fixed(const Fixed& f);
 	Fixed&	operator=(const Fixed& f);
-	//
-
-//	friend	std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
 
 	bool	operator>(const Fixed& other) const;
 	bool	operator<(const Fixed& other) const;
@@ -44,7 +39,6 @@ public:
 
 	float	toFloat(void) const;
 	int 	toInt(void) const;
-
 	int		getRawBits(void) const;
 
 	~Fixed();

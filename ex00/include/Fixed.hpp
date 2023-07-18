@@ -7,18 +7,18 @@
 // The Orthodox Canonical From (OCF) includes the following:
 // 1) A constructor
 // 2) A copy constructor
-// 3) A destructor
-// 4) An assignation operator
+// 3) An assignation operator
+// 4) A destructor
 class Fixed {
 public:
 	Fixed();
 	Fixed(const Fixed& other);
-	~Fixed();
-
 	Fixed& operator=(const Fixed& other);
 
 	int		getRawBits(void) const;
-	void	setRawBits(int const raw);
+    void	setRawBits(int const raw);
+
+    ~Fixed();
 
 private:
 	int					_value;

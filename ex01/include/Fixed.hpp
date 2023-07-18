@@ -3,6 +3,7 @@
 
 // INCLUDES
 #include <iostream>
+#include <cmath>
 
 #define MESSAGE 1
 
@@ -11,17 +12,17 @@ public:
 	Fixed();
 	Fixed(const int value);
 	Fixed(const float value);
-	~Fixed();
-
-	friend	std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
 
 	float	toFloat(void) const;
-	int 	toInt(void) const;
+    int 	toInt(void) const;
 
+    ~Fixed();
 
 private:
-	int					_value;
-	static const int	_fractionalBits = 8;
+    int					_value;
+    static const int	_fractionalBits = 8;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
 
 #endif
