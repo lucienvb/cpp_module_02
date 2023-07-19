@@ -1,7 +1,7 @@
 #include <Fixed.hpp>
 
 //const Fixed Fixed::_minValue = Fixed(-1.0f);
-const Fixed Fixed::_minValue = Fixed(-(1 << Fixed::_fractionalBits));
+//const Fixed Fixed::_minValue = Fixed(-(1 << Fixed::_fractionalBits));
 
 Fixed::Fixed() {
 	if (MESSAGE)
@@ -29,20 +29,19 @@ Fixed::Fixed(const float value) {
 	_value = (roundf(value * (1 << _fractionalBits)));
 }
 
-// Where for?
-Fixed::Fixed(const Fixed& f) {
+Fixed::Fixed(const Fixed& other) {
 	if (MESSAGE)
 		std::cout << "Copy constructor called" << std::endl;
-	_value = f.getRawBits();
-
+//    *this = other;
+	_value = other.getRawBits();
 }
 
-// Where for?
-Fixed&	Fixed::operator=(const Fixed& f) {
+Fixed&	Fixed::operator=(const Fixed& other) {
 	if (MESSAGE)
 		std::cout << "Copy assigment operator called" << std::endl;
-	if (this != &f)
-		_value = f.getRawBits();
+	if (this != &other)
+//		_value = other._value;
+		_value = other.getRawBits();
 	return (*this);
 
 }
@@ -97,32 +96,41 @@ bool	Fixed::operator!=(const Fixed& other) const {
 }
 
 Fixed	Fixed::operator+(const Fixed& other) const {
-	int	sum = _value + other._value;
-	return (Fixed(sum / (1 << _fractionalBits)));
+	int		sum;
+	Fixed	ans;
+
+	sum = _value + other._value;
+	ans._value = sum;
+	return ans;
 }
 
 Fixed	Fixed::operator-(const Fixed& other) const {
-	int	sum = _value - other._value;
-	return (Fixed(sum / (1 << _fractionalBits)));
+	int		subtract;
+	Fixed	ans;
+
+	subtract = _value - other._value;
+	ans._value = subtract;
+	return ans;
 }
 
 Fixed	Fixed::operator*(const Fixed& other) const {
-	int	product = _value * other._value;
-	return (Fixed(product >> (_fractionalBits * 2)));
+	float	product = (float)_value * (float)other._value;
+	return (Fixed(product / (1 << (2 * _fractionalBits))));
+
+//	alternative:
+//	return (Fixed(((float)_value / (1 << _fractionalBits)) * ((float)other._value / (1 << _fractionalBits))));
 }
 
 Fixed	Fixed::operator/(const Fixed& other) const {
-	int	quotient = _value / other._value;
-//	int64_t numerator = static_cast<int64_t>(_value) << _fractionalBits;
-//	int32_t quotient = static_cast<int32_t>((numerator / other._value) + ((numerator % other._value) >= (other._value >> 1)));
-	return (Fixed(quotient));
+	float	quotient = (float)_value / (float)other._value;
+	return (Fixed(quotient * (1 << (2 / _fractionalBits))));
+
+//	alternative:
+//	return (Fixed(((float)_value / (1 << _fractionalBits)) / ((float)other._value / (1 << _fractionalBits))));
 }
 
 Fixed&	Fixed::operator++(void) {
-	if (*this == _minValue)
-		_value = _minValue._value;
-	else
-		_value += (1 << _fractionalBits);
+	_value++;
 	return (*this);
 }
 
@@ -133,7 +141,7 @@ Fixed	Fixed::operator++(int) {
 }
 
 Fixed&	Fixed::operator--(void) {
-	_value -= (1 << _fractionalBits);
+	_value--;
 	return (*this);
 }
 
@@ -159,7 +167,6 @@ const Fixed	Fixed::max(const Fixed a, const Fixed b) {
 	return (a > b) ? a : b;
 }
 
-// Is this one needed for this exercise?
 int	Fixed::getRawBits() const {
 	if (MESSAGE)
 		std::cout << "getRawBits member function called" << std::endl;

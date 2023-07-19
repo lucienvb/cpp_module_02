@@ -12,8 +12,8 @@ public:
 	Fixed();
 	Fixed(const int value);
 	Fixed(const float value);
-	Fixed(const Fixed& f);
-	Fixed&	operator=(const Fixed& f);
+	Fixed(const Fixed& other);
+	Fixed&	operator=(const Fixed& other);
 
 	bool	operator>(const Fixed& other) const;
 	bool	operator<(const Fixed& other) const;

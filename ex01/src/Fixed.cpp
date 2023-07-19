@@ -26,6 +26,20 @@ Fixed::Fixed(const float value) {
 	_value = (roundf(value * (1 << _fractionalBits)));
 }
 
+Fixed::Fixed(const Fixed& other) {
+    if (MESSAGE)
+		std::cout << "Copy constructor called" << std::endl;
+    *this = other;
+}
+
+Fixed& Fixed::operator=(const Fixed& other) {
+	if (MESSAGE)
+		std::cout << "Copy assignment operator called" << std::endl;
+    if (this != &other)
+        _value = other._value;
+    return (*this);
+}
+
 Fixed::~Fixed() {
 	if (MESSAGE)
 		std::cout << "Destructor called" << std::endl;
