@@ -93,6 +93,11 @@ Fixed	Fixed::operator-(const Fixed& other) const {
 	return ans;
 }
 
+// First the values of the current Fixed object (_value) and the other Fixed object (other._value) are multiplied
+// and stores the result in the product variable. The explicit casting to float is performed to ensure that the
+// multiplication is done in floating-point precision rather than integer precision.
+// Afterward, the expression divides the product by 2^(2 * _fractionalBits), effectively scaling down the
+// floating-point result to fit within the fixed-point representation. Finally, it returns a new Fixed object.
 Fixed	Fixed::operator*(const Fixed& other) const {
 	float	product;
 
@@ -131,6 +136,9 @@ Fixed	Fixed::operator--(int) {
 	return (old);
 }
 
+// The functions four below use a ternary conditional operator that works as follows.
+// If the condition is true it returns the first value (a).
+// If it's false it returns the second value (b).
 Fixed&	Fixed::min(Fixed& a, Fixed& b) {
 	return (a < b) ? a : b;
 }
